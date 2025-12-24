@@ -2,7 +2,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
-import * as machineService from "../../services/machineService";
 import * as sensorService from "../../services/sensorService";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
@@ -18,8 +17,10 @@ const MachineDetails = () => {
     const fetchData = async () => {
       try {
         const data = await sensorService.getMachineSensorData(machine_id);
-        setSensorData(data);
-        if (data.length > 0) setLatest(data[data.length - 1]);
+        // Add unique id for chart
+        const dataWithId = data.map((item, index) => ({ ...item, id: index + 1 }));
+        setSensorData(dataWithId);
+        if (dataWithId.length > 0) setLatest(dataWithId[dataWithId.length - 1]);
       } catch (err) {
         console.error(err);
       }
@@ -28,31 +29,36 @@ const MachineDetails = () => {
   }, [machine_id]);
 
   // Start streaming latest sensor data
-const startStream = async () => {
-  if (streaming) return;
+  const startStream = async () => {
+    if (streaming) return;
 
-  // Trigger backend stream
-  try {
-    await axios.post(`${import.meta.env.VITE_BACK_END_SERVER_URL}/api/machines/${machine_id}/start`);
-    console.log("Backend digital twin stream started");
-  } catch (err) {
-    console.error("Failed to start backend stream:", err);
-    return;
-  }
-
-  // Start frontend polling
-  const id = setInterval(async () => {
+    // Trigger backend stream
     try {
-      const latestData = await sensorService.getLatestSensorData(machine_id);
-      setLatest(latestData);
-      setSensorData(prev => [...prev, latestData]);
+      await axios.post(`${import.meta.env.VITE_BACK_END_SERVER_URL}/api/machines/${machine_id}/start`);
+      console.log("Backend digital twin stream started");
     } catch (err) {
-      console.error(err);
+      console.error("Failed to start backend stream:", err);
+      return;
     }
-  }, 2000);
-  setIntervalId(id);
-  setStreaming(true);
-};
+
+    // Start frontend polling
+    const id = setInterval(async () => {
+      try {
+        const latestData = await sensorService.getLatestSensorData(machine_id);
+
+        // Add id for chart
+        const dataWithId = { ...latestData, id: sensorData.length + 1 };
+
+        // Keep only last 20 points for scrolling effect
+        setSensorData(prev => [...prev.slice(-19), dataWithId]);
+        setLatest(dataWithId);
+      } catch (err) {
+        console.error(err);
+      }
+    }, 2000);
+    setIntervalId(id);
+    setStreaming(true);
+  };
 
   const stopStream = () => {
     if (intervalId) clearInterval(intervalId);
@@ -61,7 +67,7 @@ const startStream = async () => {
 
   if (!latest) return <p>Loading...</p>;
 
-  const isOverheating = latest.temperature > 75; // use your backend threshold
+  const isOverheating = latest.temperature > 75;
 
   return (
     <main>
@@ -69,16 +75,16 @@ const startStream = async () => {
 
       {isOverheating && (
         <p style={{ color: "red", fontWeight: "bold" }}>
-          ⚠️ Temperature is too high: {latest.temperature}°C
+          ⚠️ Temperature is too high: {latest.temperature.toFixed(2)}°C
         </p>
       )}
 
       <div style={{ display: "flex", gap: "20px", marginBottom: "10px" }}>
         <p>Status: {latest.status}</p>
-        <p>Temperature: {latest.temperature}°C</p>
-        <p>Power: {latest.power_consumption_kw} kW</p>
-        <p>Latency: {latest.network_latency_ms} ms</p>
-        <p>Error rate: {latest.error_rate_pct}%</p>
+        <p>Temperature: {latest.temperature.toFixed(2)}°C</p>
+        <p>Power: {latest.power_consumption_kw.toFixed(2)} kW</p>
+        <p>Latency: {latest.network_latency_ms.toFixed(2)} ms</p>
+        <p>Error rate: {latest.error_rate_pct.toFixed(2)}%</p>
         <p>Efficiency: {latest.efficiency_status}</p>
       </div>
 
@@ -94,7 +100,7 @@ const startStream = async () => {
           <XAxis dataKey="id" />
           <YAxis />
           <Tooltip />
-          <Line type="monotone" dataKey="temperature" stroke="#ff0000" />
+          <Line type="monotone" dataKey="temperature" stroke="#ff0000" isAnimationActive={true} />
         </LineChart>
       </ResponsiveContainer>
     </main>
