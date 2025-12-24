@@ -1,22 +1,19 @@
 // src/components/Dashboard/Dashboard.jsx
-
-import { useContext, useEffect } from 'react';
-import * as userService from '../../services/userService'
+import { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { UserContext } from '../../contexts/UserContext';
 import * as machineService from '../../services/machineService';
-
 
 const Dashboard = () => {
   const [machines, setMachines] = useState([]);
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
 
-
- useEffect(() => {
+  useEffect(() => {
     const fetchMachines = async () => {
       try {
         const data = await machineService.getAllMachines();
+        console.log("Fetched machines:", data); // <- add this
         setMachines(data);
       } catch (err) {
         console.error(err);
@@ -34,11 +31,11 @@ const Dashboard = () => {
       <div className="machine-grid">
         {machines.map(machine => (
           <div
-            key={machine._id}
+            key={machine.machine_id}
             className="machine-card"
-            onClick={() => navigate(`/machines/${machine._id}`)}
+            onClick={() => navigate(`/machines/${machine.machine_id}`)}
           >
-            <h3>{machine.name}</h3>
+            <h3>Machine #{machine.machine_id}</h3>
             <p>Status: {machine.status}</p>
           </div>
         ))}
