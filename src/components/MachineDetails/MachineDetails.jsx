@@ -28,20 +28,31 @@ const MachineDetails = () => {
   }, [machine_id]);
 
   // Start streaming latest sensor data
-  const startStream = () => {
-    if (streaming) return;
-    const id = setInterval(async () => {
-      try {
-        const latestData = await sensorService.getLatestSensorData(machine_id);
-        setLatest(latestData);
-        setSensorData(prev => [...prev, latestData]);
-      } catch (err) {
-        console.error(err);
-      }
-    }, 2000); // every 2 seconds
-    setIntervalId(id);
-    setStreaming(true);
-  };
+const startStream = async () => {
+  if (streaming) return;
+
+  // Trigger backend stream
+  try {
+    await axios.post(`${import.meta.env.VITE_BACK_END_SERVER_URL}/api/machines/${machine_id}/start`);
+    console.log("Backend digital twin stream started");
+  } catch (err) {
+    console.error("Failed to start backend stream:", err);
+    return;
+  }
+
+  // Start frontend polling
+  const id = setInterval(async () => {
+    try {
+      const latestData = await sensorService.getLatestSensorData(machine_id);
+      setLatest(latestData);
+      setSensorData(prev => [...prev, latestData]);
+    } catch (err) {
+      console.error(err);
+    }
+  }, 2000);
+  setIntervalId(id);
+  setStreaming(true);
+};
 
   const stopStream = () => {
     if (intervalId) clearInterval(intervalId);
