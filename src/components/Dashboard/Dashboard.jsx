@@ -8,27 +8,41 @@ import * as machineService from '../../services/machineService';
 
 
 const Dashboard = () => {
+  const [machines, setMachines] = useState([]);
   const { user } = useContext(UserContext);
+  const navigate = useNavigate();
 
-   useEffect(() => {
-    const fetchUsers = async () => {
+
+ useEffect(() => {
+    const fetchMachines = async () => {
       try {
-        const fetchedUsers = await userService.index();
-        console.log(fetchedUsers);
+        const data = await machineService.getAllMachines();
+        setMachines(data);
       } catch (err) {
-        console.log(err)
+        console.error(err);
       }
-    }
-    if (user) fetchUsers();
-  }, [user]);
+    };
 
+    if (user) fetchMachines();
+  }, [user]);
 
   return (
     <main>
       <h1>Welcome, {user.username}</h1>
-      <p>
-        This is the dashboard page where you can see a list of all the users.
-      </p>
+      <p>Select a machine to monitor:</p>
+
+      <div className="machine-grid">
+        {machines.map(machine => (
+          <div
+            key={machine._id}
+            className="machine-card"
+            onClick={() => navigate(`/machines/${machine._id}`)}
+          >
+            <h3>{machine.name}</h3>
+            <p>Status: {machine.status}</p>
+          </div>
+        ))}
+      </div>
     </main>
   );
 };
