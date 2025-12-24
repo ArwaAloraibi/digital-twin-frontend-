@@ -2,6 +2,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
+import { toast } from "react-toastify";
 import * as sensorService from "../../services/sensorService";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
@@ -28,6 +29,11 @@ const MachineDetails = () => {
     fetchData();
   }, [machine_id]);
 
+     const triggerAlerts = (data) => {
+    if (data.temperature > 75) {
+      toast.error(`🔥 High Temperature: ${data.temperature.toFixed(2)}°C`);
+    }
+  }
   // Start streaming latest sensor data
   const startStream = async () => {
     if (streaming) return;
@@ -52,10 +58,14 @@ const MachineDetails = () => {
         // Keep only last 20 points for scrolling effect
         setSensorData(prev => [...prev.slice(-19), dataWithId]);
         setLatest(dataWithId);
+        
+        triggerAlerts(dataWithId);
+
       } catch (err) {
         console.error(err);
       }
     }, 2000);
+
     setIntervalId(id);
     setStreaming(true);
   };
@@ -69,9 +79,10 @@ const MachineDetails = () => {
 
   const isOverheating = latest.temperature > 75;
 
+  
   return (
     <main>
-      <h2>Machine #{machine_id} Details</h2>
+      <h2 style={{ textAlign: "center" }}> Machine #{machine_id}</h2>
 
       {isOverheating && (
         <p style={{ color: "red", fontWeight: "bold" }}>

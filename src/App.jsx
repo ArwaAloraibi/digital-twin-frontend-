@@ -10,6 +10,9 @@ import Dashboard from './components/Dashboard/Dashboard';
 import MachineDetails from './components/MachineDetails/MachineDetails';
 import { useContext } from 'react';
 import { UserContext } from './contexts/UserContext';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Bounce } from "react-toastify";
 import './App.css';
 
 const App = () => {
@@ -19,6 +22,17 @@ const App = () => {
     <>
       <NavBar />
 
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        closeOnClick={false}
+        pauseOnHover
+        draggable
+        theme="colored"
+        transition={Bounce}
+      />
+      
       <Routes>
         {
           user ?
@@ -31,6 +45,7 @@ const App = () => {
             :
             <Route path='/' element={<Landing/>}/>
         }
+     
         <Route path='/sign-up' element={<SignUpForm />} />
         <Route path='/sign-in' element={<SignInForm />} />
       </Routes>
