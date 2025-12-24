@@ -24,7 +24,7 @@ const App = () => {
           user ?
           <>
             <Route path='/' element={<Dashboard/>}/>
-            <Route path="/machines/:id" element={<MachineDetails />} />
+            <Route path="/machines/:machine_id" element={<MachineDetails />} />
             <Route path='/profile' element={<h1>{user.username}</h1>}/>
 
           </>
