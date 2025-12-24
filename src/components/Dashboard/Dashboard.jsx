@@ -13,7 +13,6 @@ const Dashboard = () => {
     const fetchMachines = async () => {
       try {
         const data = await machineService.getAllMachines();
-        console.log("Fetched machines:", data); // <- add this
         setMachines(data);
       } catch (err) {
         console.error(err);
@@ -34,8 +33,9 @@ const Dashboard = () => {
             key={machine.machine_id}
             className="machine-card"
             onClick={() => navigate(`/machines/${machine.machine_id}`)}
+            style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}
           >
-            <h3>Machine #{machine.machine_id}</h3>
+            <h3>Machine {machine.machine_id}</h3>
             <p>Status: {machine.status}</p>
           </div>
         ))}
