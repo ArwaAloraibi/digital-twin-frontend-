@@ -23,6 +23,7 @@ const App = () => {
           user ?
           <>
             <Route path='/' element={<Dashboard/>}/>
+            <Route path="/machines/:id" element={<MachineDetails />} />
             <Route path='/products' element={<h1>Producs</h1>}/>
             <Route path='/favs' element={<h1>Favs</h1>}/>
             <Route path='/profile' element={<h1>{user.username}</h1>}/>
