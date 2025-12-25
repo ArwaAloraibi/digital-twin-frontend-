@@ -91,7 +91,18 @@ const MachineDetails = () => {
   if (!latest) return <p>Loading...</p>;
 
   const errorRate = latest.error_rate_pct ?? 0;
+  const efficiencyRate = latest.efficiency_rate_pct ?? 0;
 
+ const efficiencyStatus = latest.efficiency_status ?? "Unknown";
+
+let efficiencyColor = "#22c55e"; // green
+if (efficiencyStatus === "Medium") efficiencyColor = "#facc15"; // yellow
+if (efficiencyStatus === "Low") efficiencyColor = "#ef4444"; // red
+
+const pieData = [
+  { name: "Efficiency", value: efficiencyRate, color: efficiencyColor },
+  { name: "Remaining", value: 100 - efficiencyRate, color: "#e5e7eb" }
+];
   return (
     <main>
       <h2 style={{ textAlign: "center" }}>Machine #{machine_id}</h2>
@@ -120,7 +131,7 @@ const MachineDetails = () => {
 
         <div className="card followers">
           <span>Efficiency</span>
-        <p>Efficiency: {latest.efficiency_status}</p>
+        <p>{latest.efficiency_status}</p>
         </div>
       </div>
 
@@ -156,31 +167,23 @@ const MachineDetails = () => {
           </ResponsiveContainer>
         </div>
 
-        {/* EFFICIENCY DONUT */}
-        <div className="donut-container">
-          <h3>Efficiency</h3>
-          <ResponsiveContainer width="100%" height={220}>
-            <PieChart>
-              <Pie
-              data={[
-  { name: "Efficient", value: latest.efficiency_rate_pct ?? 0 },
-  { name: "Loss", value: 100 - (latest.efficiency_rate_pct ?? 0) }
-]}
-                
-                innerRadius={70}
-                outerRadius={95}
-                dataKey="value"
-              >
-                <Cell fill="#22c55e" />
-                <Cell fill="#e5e7eb" />
-              </Pie>
-            </PieChart>
-          </ResponsiveContainer>
-          <p className="status-text">{latest.efficiency_status}</p>
-        </div>
+
       </div>
     </main>
   );
 };
 
 export default MachineDetails;
+
+
+
+
+
+
+
+
+
+
+
+
+
