@@ -1,0 +1,135 @@
+/* ================= SignUpForm.css ================= */
+
+/* General main styling */
+.sign-up-form {
+  width: 400px;                /* moderate size */
+  max-width: 90%;
+  margin: 120px auto;          /* center horizontally with top spacing */
+  padding: 36px 32px;
+  background: #f5f3ff;
+  border-radius: 24px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: relative;
+  left: 20px;                  /* slight right shift */
+}
+
+/* Page title */
+.sign-up-form h1 {
+  font-size: 44px;
+  font-weight: 700;
+  margin-bottom: 28px;
+  color: #18698f;
+}
+
+/* Error or info message */
+.sign-up-form p {
+  color: #ef4444;
+  font-weight: 600;
+  margin-bottom: 24px;
+  font-size: 16px;
+}
+
+/* Form styling */
+.sign-up-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* Input container */
+.sign-up-form form div {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+/* Labels */
+.sign-up-form form label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #111827;
+  font-size: 16px;
+}
+
+/* Inputs */
+.sign-up-form form input {
+  padding: 14px 18px;
+  font-size: 16px;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+}
+
+.sign-up-form form input:focus {
+  outline: none;
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+}
+
+/* Button container */
+.sign-up-form form > div:last-child {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+/* Buttons */
+.sign-up-form button {
+  flex: 1;
+  padding: 14px 0;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 16px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: linear-gradient(135deg, #a855f7, #8b5cf6);
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.sign-up-form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+.sign-up-form button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Cancel button alternative style */
+.sign-up-form button:last-child {
+  background: #f5f3ff;
+  color: #111827;
+  border: 1px solid #e5e7eb;
+}
+
+.sign-up-form button:last-child:hover {
+  background: #e5e7eb;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sign-up-form {
+    margin: 60px 20px;
+    padding: 32px 24px;
+    left: 0;  /* remove shift on small screens */
+  }
+
+  .sign-up-form h1 {
+    font-size: 36px;
+  }
+
+  .sign-up-form form input {
+    font-size: 15px;
+    padding: 12px 14px;
+  }
+
+  .sign-up-form button {
+    font-size: 15px;
+    padding: 12px 0;
+  }
+}
