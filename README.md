@@ -12,3 +12,4 @@ A React-based web dashboard that allows authenticated users to monitor the simul
 - Add a pi chart to visualize the efficiency
 - Add another machines to monitor
 - Calculate how much energy the machine uses under different conditions
+- display the network_latency_ms 
