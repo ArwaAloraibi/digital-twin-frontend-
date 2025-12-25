@@ -1,0 +1,15 @@
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+  background: #f5f6fa; /* light dashboard gray like the photo */
+  color: #1f2937; /* dark gray text */
+}
+
+#root {
+  display: flex;
+}
+
+main {
+  margin-left: 240px; /* SAME WIDTH AS NAVBAR */
+  padding: 32px;
+}

@@ -1,0 +1,160 @@
+/* ================= GENERAL STYLES ================= */
+main {
+  font-family: 'Inter', sans-serif;
+  padding: 24px;
+  background: #f5f3ff;
+  max-width: 1200px;
+  margin: 0 auto; /* center content */
+}
+
+/* Page title */
+main h2 {
+  font-size: 50px;
+  font-weight: 700;
+  margin-bottom: 35px;
+  margin-top: 11px;
+  color: #18698f;
+  text-align: center;
+}
+
+/* ================= INFO CARDS ================= */
+main > .info-cards {
+  display: flex;
+  flex-wrap: nowrap; /* keep all in one line */
+  gap: 14px; /* slightly smaller gap */
+  margin-bottom: 24px;
+  justify-content: space-between;
+  /* remove overflow-x: auto to eliminate scroll bar */
+}
+
+.card {
+  flex: 1 1 calc(20% - 11px); /* 5 cards fit perfectly, accounting for gap */
+  min-width: 175px; 
+  max-width: 240px; 
+  height: 90px;
+  color: #fff;
+  padding: 16px 20px; /* slightly smaller padding */
+  border-radius: 16px;
+  font-weight: 600;
+  font-size: 25px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+
+.card p {
+  font-size: 20px;
+  margin-top: 8px;
+}
+
+/* Gradients for cards */
+.card.comments { background: linear-gradient(135deg, #f88379, #ff6b81); }
+.card.followers { background: linear-gradient(135deg, #a855f7, #8b5cf6); }
+.card.views { background: linear-gradient(135deg, #22d3ee, #06b6d4); }
+.card.notification { background: linear-gradient(135deg, #facc15, #fcd34d); }
+
+/* ================= ACTION BUTTONS ================= */
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+button {
+  background: #f163a5;
+  border: none;
+  color: white;
+  padding: 12px 28px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  background: #4f46e5;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ================= CHARTS ================= */
+.charts-grid {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap; /* stack on small screens */
+  margin-bottom: 24px;
+}
+
+.chart-container,
+.donut-container {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  flex: 1 1 0;
+  min-width: 300px;
+}
+
+/* Make charts same height */
+.chart-container {
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+}
+
+.donut-container {
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Donut chart title and status */
+.donut-container h3 {
+  text-align: center;
+  margin-bottom: 12px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.status-text {
+  margin-top: 12px;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 1024px) {
+  .charts-grid {
+    flex-direction: column; /* stack charts */
+  }
+}
+
+@media (max-width: 768px) {
+  main > .info-cards {
+    gap: 12px;
+  }
+
+  .card {
+    min-width: 150px;
+    padding: 16px;
+  }
+
+  button {
+    padding: 10px 20px;
+  }
+}

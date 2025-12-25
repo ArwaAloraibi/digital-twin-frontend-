@@ -3,6 +3,8 @@
 // Import the useContext hook
 import { useContext } from 'react';
 import { Link } from 'react-router';
+import "./NavBar.css";
+
 
 // Import the UserContext object
 import { UserContext } from '../../contexts/UserContext';
