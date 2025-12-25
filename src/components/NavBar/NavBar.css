@@ -1,7 +1,7 @@
 nav {
   width: 240px;
   min-height: 100vh;
-  background: linear-gradient(180deg, #7c3aed, #5b21b6);
+  background: linear-gradient(135deg, #a855f7, #8b5cf6);
   padding: 28px 20px;
   box-sizing: border-box;
   position: fixed; /* IMPORTANT */
@@ -43,7 +43,7 @@ nav a:hover {
 
 /* welcome text */
 nav li:first-child {
-  font-size: 15px;
+  font-size: 23px;
   opacity: 0.9;
   margin-bottom: 18px;
 }
