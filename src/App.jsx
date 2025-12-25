@@ -2,7 +2,6 @@
 
 import { Routes, Route } from 'react-router';// Import React Router
 import NavBar from './components/NavBar/NavBar';
-// Import the SignUpForm component
 import SignUpForm from './components/SignUpForm/SignUpForm';
 import SignInForm from './components/SignInForm/SignInForm';
 import Landing from './components/Landing/Landing';
@@ -32,7 +31,7 @@ const App = () => {
         theme="colored"
         transition={Bounce}
       />
-      
+
       <Routes>
         {
           user ?

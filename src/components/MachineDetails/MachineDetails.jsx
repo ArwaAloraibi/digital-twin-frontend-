@@ -8,10 +8,25 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 
 const MachineDetails = () => {
   const { machine_id } = useParams();
+  const [machine, setMachine] = useState();
   const [sensorData, setSensorData] = useState([]);
-  const [latest, setLatest] = useState(null);
+  const [latest, setLatest] = useState();
   const [streaming, setStreaming] = useState(false);
-  const [intervalId, setIntervalId] = useState(null);
+  const [intervalId, setIntervalId] = useState();
+
+  useEffect(() => {
+    const fetchMachine = async () => {
+      try {
+        const res = await axios.get(
+          `${import.meta.env.VITE_BACK_END_SERVER_URL}/api/machines/${machine_id}`
+        );
+        setMachine(res.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchMachine();
+  }, [machine_id]);
 
   // Fetch all historical sensor data
   useEffect(() => {
@@ -33,7 +48,8 @@ const MachineDetails = () => {
     if (data.temperature > 75) {
       toast.error(`🔥 High Temperature: ${data.temperature.toFixed(2)}°C`);
     }
-  }
+  };
+  
   // Start streaming latest sensor data
   const startStream = async () => {
     if (streaming) return;
@@ -84,14 +100,9 @@ const MachineDetails = () => {
     <main>
       <h2 style={{ textAlign: "center" }}> Machine #{machine_id}</h2>
 
-      {isOverheating && (
-        <p style={{ color: "red", fontWeight: "bold" }}>
-          ⚠️ Temperature is too high: {latest.temperature.toFixed(2)}°C
-        </p>
-      )}
-
+     
       <div style={{ display: "flex", gap: "20px", marginBottom: "10px" }}>
-        <p>Status: {latest.status}</p>
+                <p>Status: {machine.status}</p> 
         <p>Temperature: {latest.temperature.toFixed(2)}°C</p>
         <p>Power: {latest.power_consumption_kw.toFixed(2)} kW</p>
         <p>Latency: {latest.network_latency_ms.toFixed(2)} ms</p>
