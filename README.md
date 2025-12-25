@@ -16,3 +16,6 @@ A React-based web dashboard that allows authenticated users to monitor the simul
 - Add another machines to monitor
 - Calculate how much energy the machine uses under different conditions
 - display the network_latency_ms 
+
+### BackEnd Repository:
+https://github.com/ArwaAloraibi/digital-twin-api/tree/main
