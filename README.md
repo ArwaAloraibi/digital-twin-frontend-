@@ -8,7 +8,7 @@ A React-based web dashboard that allows authenticated users to monitor the simul
 ⦁	CSS </br>
 
 
-![Home Page](https://i.imgur.com/A9rucfX.png)
+![Home Page](https://i.imgur.com/iBIqaRp.png)
 ![Machine Monitoring Dashboard](https://i.imgur.com/QB2115A.png)
 
 ### Future Enhancements:
