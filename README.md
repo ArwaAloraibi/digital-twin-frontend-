@@ -3,7 +3,10 @@ A React-based web dashboard that allows authenticated users to monitor the simul
 
 ### Technologies:
 ⦁	React (jsx) </br>
-⦁	Fetch API (to get backend data)
+⦁	Fetch API (to get backend data)</br>
+⦁	HTML </br>
+⦁	CSS </br>
+
 
 ![Home Page](https://i.imgur.com/A9rucfX.png)
 ![Machine Monitoring Dashboard](https://i.imgur.com/QB2115A.png)
