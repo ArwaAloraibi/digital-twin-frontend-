@@ -1,0 +1,108 @@
+/* ================= Dashboard.css ================= */
+
+/* ================= GENERAL STYLES ================= */
+main {
+  font-family: 'Inter', sans-serif;
+  padding: 24px;
+  background: #f5f3ff;
+  max-width: 1200px;
+  margin: 0 auto; /* center content */
+}
+
+main h1 {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #18698f;
+  text-align: center;
+}
+
+main p {
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* ================= DROPDOWN ================= */
+.machine-select-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+select.machine-select {
+  padding: 12px 16px;
+  font-size: 18px;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 280px;
+  max-width: 400px;
+}
+
+select.machine-select:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+select.machine-select:focus {
+  outline: none;
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+}
+
+/* ================= MACHINE GRID ================= */
+.machine-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.machine-card {
+  background: linear-gradient(135deg, #a855f7, #8b5cf6);
+  color: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  min-width: 200px;
+  max-width: 260px;
+  flex: 1 1 200px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.machine-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+.machine-card h3 {
+  margin: 0 0 8px 0;
+  font-size: 24px;
+}
+
+.machine-card p {
+  margin: 0;
+  font-size: 18px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  select.machine-select {
+    width: 90%;
+    font-size: 16px;
+    padding: 10px 14px;
+  }
+
+  .machine-card {
+    min-width: 150px;
+    padding: 16px;
+  }
+}
